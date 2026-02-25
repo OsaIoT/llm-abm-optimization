@@ -1,0 +1,36 @@
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Data and Results
+# Ignore everything inside results, BUT keep the folder structure using .gitkeep
+results/*
+!results/**/.gitkeep
+*.csv
+*.log
+
+# IDE settings
+.vscode/
+.idea/
+
+# Virtual Environments (in case you create one in the folder in the future)
+venv/
+.venv/
+env/
+
+# System files (Windows and Mac)
+desktop.ini
+Thumbs.db
+.DS_Store
+
+# Build files (related to pyproject.toml)
+build/
+dist/
+*.egg-info/
