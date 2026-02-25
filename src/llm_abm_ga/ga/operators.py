@@ -20,12 +20,12 @@ Individual = Tuple[List[int], List[int]]
 
 def generate_individual(n_system_phrases: int, n_user_phrases: int) -> Individual:
     system_bits = [random.choice([0, 1]) for _ in range(n_system_phrases)]
-    # keep user bits disabled by default (as in the old code)
+    # keep user bits disabled by default
     user_bits = [0] * n_user_phrases
     return (system_bits, user_bits)
 
 
-# --- Legacy signature (same as old code) ---
+# --- Legacy signature ---
 def generate_population(
     pop_size: int,
     system_template_phrases: List[str],
@@ -55,7 +55,7 @@ def generate_population(
     return population
 
 
-# --- Optional helper (new signature, sometimes convenient) ---
+# --- Optional helper ---
 def generate_population_counts(pop_size, n_system_phrases, n_user_phrases):
     population = []
     seen = set()
@@ -89,7 +89,6 @@ def select_next_generation(
     k: int = 3,
     elite_size: int = 0,
 ) -> List[Individual]:
-    # Keep old behaviour: no extra validation unless you want it.
     if elite_size == 0:
         return tournament_selection(population, fitnesses, k)
     elite = apply_elitism(population, fitnesses, elite_size)
@@ -118,7 +117,7 @@ def mutate(individual: Individual, mutation_rate: float = 0.05) -> Individual:
     return (mutated_system, mutated_user)
 
 
-# --- Legacy signature (same as old code) ---
+# --- Legacy signature  ---
 def compute_fitness(firm: Any) -> float:
     """
     Legacy-compatible fitness function.
@@ -134,7 +133,7 @@ def compute_fitness(firm: Any) -> float:
     return float(sum(profits))
 
 
-# --- Optional helper (new signature) ---
+# --- Optional helper ---
 def compute_fitness_from_profits(profits: Iterable[float]) -> float:
     """Convenience wrapper if you already have a profit iterable."""
     return float(sum(profits))

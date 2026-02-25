@@ -32,7 +32,7 @@ class Firm:
         total_periods: int,
         cost_index: float = COST_INDEX,
     ) -> None:
-        # (mantengo struttura simile al vecchio)
+        
         self.cost_index = cost_index
         self.id = firm_id
         self.n_competitors = n_competitors

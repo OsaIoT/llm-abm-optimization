@@ -26,8 +26,8 @@ def evolve_prompts(
     pop_size: int = 50,
     n_buyers: int = 80000,
     periods: int = 10,
-    tournament_k: int = 6,   # come vecchio
-    elite_size: int = 5,     # come vecchio
+    tournament_k: int = 6,   
+    elite_size: int = 5,     
     mutation_rate: float = 0.1,
     log_file: str | None = None,
 ) -> List[Individual]:
@@ -39,12 +39,12 @@ def evolve_prompts(
     - If log_file is None, creates one (old behaviour)
     """
 
-    # Initial population (coerente col tuo generate_population_counts)
+    # Initial population 
     population: List[Individual] = generate_population_counts(
         pop_size, len(system_phrases), len(user_phrases)
     )
 
-    # Old behaviour: always log (create a default log file if not provided)
+    # always log (create a default log file if not provided)
     if log_file is None:
         log_file = setup_logger("results/logs")
 
@@ -61,7 +61,7 @@ def evolve_prompts(
         model = MarketModel(decoded_prompts, n_buyers=n_buyers, periods=periods)
         model.run()
 
-        # Compute fitness (coerente con compute_fitness(firm))
+        # Compute fitness 
         fitnesses: List[float] = [compute_fitness(firm) for firm in model.firms]
 
         gen_best_fitness = max(fitnesses)
@@ -70,7 +70,7 @@ def evolve_prompts(
         print(f"Best fitness this generation: {gen_best_fitness:.2f}")
         print(f"All fitnesses: {fitnesses}")
 
-        # Log generation (old behaviour: always logs)
+        # Log generation 
         log_generation_data(log_file, gen + 1, population, fitnesses)
 
         # Selection

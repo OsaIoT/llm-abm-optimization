@@ -15,7 +15,6 @@ except ImportError:
     OpenAI = None  # type: ignore
 
 try:
-    # Usiamo il nuovo SDK google-genai (come nel tuo notebook)
     from google import genai # type: ignore
     from google.genai import types # type: ignore
 except ImportError:
@@ -51,7 +50,6 @@ def _get_gemini_client() -> Any:
     if not config.GEMINI_API_KEY or config.GEMINI_API_KEY.startswith("INSERISCI"):
         raise RuntimeError("GEMINI_API_KEY is not set correctly in config.")
 
-    # Inizializza il nuovo client
     _gemini_client = genai.Client(api_key=config.GEMINI_API_KEY)
     return _gemini_client
 
@@ -62,7 +60,6 @@ def generate_answer(messages: List[Dict[str, str]]) -> str:
     """
     provider = config.LLM_PROVIDER.strip().lower()
     
-    # Abbiamo bisogno di pochissimi token per "DECISION: (p, q)"
     MAX_TOKENS = 30 
 
     if provider == "gemini":
@@ -77,12 +74,10 @@ def generate_answer(messages: List[Dict[str, str]]) -> str:
             elif msg["role"] == "user":
                 user_prompt = msg["content"]
 
-        # Configurazione "Zero-Thinking" per Gemini
         generation_config = types.GenerateContentConfig(
             system_instruction=system_instruction,
             temperature=config.LLM_TEMPERATURE,
             max_output_tokens=MAX_TOKENS,
-            # Azzera il budget di ragionamento per i modelli come gemini-2.0-flash-thinking o 3.0
             thinking_config=types.ThinkingConfig(thinking_budget=0)
         )
 
@@ -96,7 +91,7 @@ def generate_answer(messages: List[Dict[str, str]]) -> str:
     elif provider == "openai":
             client = _get_openai_client()
             
-            # Check if it's an OpenAI reasoning model (o1, o3, etc.)
+            # Check if it's an OpenAI reasoning model (
             is_reasoning_model = config.LLM_MODEL.startswith(("o1", "o3", "gpt-5"))
             
             if is_reasoning_model:
