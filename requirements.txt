@@ -1,6 +1,7 @@
+# Same as `pip install -e ".[analysis]"` (see pyproject.toml); kept for pip install -r.
 numpy
-pandas
-matplotlib
 openai
 google-genai
 python-dotenv
+scipy
+matplotlib

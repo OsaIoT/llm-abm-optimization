@@ -1,36 +1,38 @@
+# Secrets: never commit API keys (copy .env.example to .env)
 .env
 
-# Python cache
+# Python cache and packaging
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
+*.egg-info/
+build/
+dist/
 
 # Jupyter Notebook
 .ipynb_checkpoints/
 
-# Data and Results
-# Ignore everything inside results, BUT keep the folder structure using .gitkeep
-results/*
-!results/**/.gitkeep
-*.csv
+# Local run output. The curated results that back the README live in
+# results/ga_runs/ and results/optimized_vs_baseline/ and are committed.
+results/logs/*
+!results/logs/.gitkeep
 *.log
 
 # IDE settings
 .vscode/
 .idea/
 
-# Virtual Environments (in case you create one in the folder in the future)
+# Virtual environments
 venv/
 .venv/
 env/
+
+# Test and plotting caches
+.pytest_cache/
+.mypy_cache/
 
 # System files (Windows and Mac)
 desktop.ini
 Thumbs.db
 .DS_Store
-
-# Build files (related to pyproject.toml)
-build/
-dist/
-*.egg-info/
