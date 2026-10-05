@@ -28,16 +28,14 @@ SRC = ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
+from llm_abm_ga import config
 from llm_abm_ga.market.model import MarketModel
 from llm_abm_ga.prompts.components import (
     system_template_phrases,
     user_template_phrases,
 )
 from llm_abm_ga.prompts.templates import decode_individual
-from llm_abm_ga.config import OPENAI_API_KEY
-
-if not OPENAI_API_KEY:
-    raise SystemExit("OPENAI_API_KEY not set. Put it in .env (project root) or in environment variables.")
+from llm_abm_ga.utils import seed_everything
 
 
 def build_default_prompt() -> dict:
@@ -78,13 +76,20 @@ def parse_args() -> argparse.Namespace:
         default=10,
         help="Number of periods to simulate (default: 10)",
     )
+    parser.add_argument(
+        "--seed",
+        type=int,
+        default=None,
+        help="Seed the market RNGs. LLM replies stay non-deterministic.",
+    )
     return parser.parse_args()
 
 
 def main() -> None:
-    # random.seed(SEED)
-    # np.random.seed(SEED)
     args = parse_args()
+    config.require_api_key()
+    if args.seed is not None:
+        seed_everything(args.seed)
     run_simulation(args.buyers, args.periods)
 
 

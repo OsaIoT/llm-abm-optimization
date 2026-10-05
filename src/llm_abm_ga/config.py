@@ -62,8 +62,8 @@ introduces more randomness into the softmax choice.
 # ---- Logging configuration ----
 ENABLE_LOGGING: bool = _env_flag("ENABLE_LOGGING", "0")
 """Enable detailed logging of firm decisions. Set to ``1`` or ``true`` to enable.
-    The output is the copy of received prompt and consequent decision of each firm 
-    in results\logs\firm_logs.txt"""
+    The output is the copy of the received prompt and the resulting decision of
+    each firm, written to results/logs/firm_logs.txt"""
 LOG_DIRECTORY: str = os.getenv("LOG_DIRECTORY", "results/logs")
 
 
@@ -88,3 +88,20 @@ DEFAULT_N_BUYERS: int = int(os.getenv("DEFAULT_N_BUYERS", "80000"))
 
 DEFAULT_PERIODS: int = int(os.getenv("DEFAULT_PERIODS", "10"))
 """Default number of time periods in each simulation."""
+
+
+def require_api_key() -> None:
+    """Exit with a helpful message if the selected provider has no API key.
+
+    The entry-point scripts call this up front so that a missing key fails fast
+    instead of in the middle of a simulation. Only the key of the provider
+    selected through ``LLM_PROVIDER`` is required.
+    """
+    keys = {"openai": OPENAI_API_KEY, "gemini": GEMINI_API_KEY}
+    if LLM_PROVIDER not in keys:
+        raise SystemExit(f"Unsupported LLM_PROVIDER '{LLM_PROVIDER}'. Use 'openai' or 'gemini'.")
+    if not keys[LLM_PROVIDER]:
+        raise SystemExit(
+            f"{LLM_PROVIDER.upper()}_API_KEY not set. Put it in .env (project root) "
+            "or in the environment variables."
+        )

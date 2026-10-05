@@ -25,39 +25,26 @@ def generate_individual(n_system_phrases: int, n_user_phrases: int) -> Individua
     return (system_bits, user_bits)
 
 
-# --- Legacy signature ---
-def generate_population(
-    pop_size: int,
-    system_template_phrases: List[str],
-    user_template_phrases: List[str],
+def generate_population_counts(
+    pop_size: int, n_system_phrases: int, n_user_phrases: int
 ) -> List[Individual]:
-    """
-    Generate a population of unique individuals.
+    """Generate ``pop_size`` distinct random individuals.
 
-    This keeps the SAME signature and behaviour as the old script:
-    - it derives n_system and n_user from the phrase lists
-    - it enforces uniqueness via a 'seen' set
+    Uniqueness is enforced through a ``seen`` set. Because user bits are always
+    zero in ``generate_individual``, only ``2 ** n_system_phrases`` distinct
+    individuals exist; asking for more would loop forever, so it raises instead.
+
+    Raises:
+        ValueError: If ``pop_size`` exceeds the number of distinct genomes.
     """
-    n_system = len(system_template_phrases)
-    n_user = len(user_template_phrases)
+    max_unique = 2 ** n_system_phrases
+    if pop_size > max_unique:
+        raise ValueError(
+            f"pop_size={pop_size} exceeds the {max_unique} distinct genomes available "
+            f"with {n_system_phrases} system bits."
+        )
 
     population: List[Individual] = []
-    seen = set()
-
-    while len(population) < pop_size:
-        individual = generate_individual(n_system, n_user)
-        individual_key = (tuple(individual[0]), tuple(individual[1]))
-
-        if individual_key not in seen:
-            seen.add(individual_key)
-            population.append(individual)
-
-    return population
-
-
-# --- Optional helper ---
-def generate_population_counts(pop_size, n_system_phrases, n_user_phrases):
-    population = []
     seen = set()
     while len(population) < pop_size:
         individual = generate_individual(n_system_phrases, n_user_phrases)
@@ -66,6 +53,18 @@ def generate_population_counts(pop_size, n_system_phrases, n_user_phrases):
             seen.add(key)
             population.append(individual)
     return population
+
+
+# --- Legacy signature ---
+def generate_population(
+    pop_size: int,
+    system_template_phrases: List[str],
+    user_template_phrases: List[str],
+) -> List[Individual]:
+    """Same as :func:`generate_population_counts`, taking the phrase libraries."""
+    return generate_population_counts(
+        pop_size, len(system_template_phrases), len(user_template_phrases)
+    )
 
 
 def tournament_selection(population: List[Individual], fitnesses: List[float], k: int = 3) -> List[Individual]:

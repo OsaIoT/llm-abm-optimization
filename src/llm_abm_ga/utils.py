@@ -9,9 +9,12 @@ from the ``Firm`` class.
 
 from __future__ import annotations
 
+import random
 import re
 from fractions import Fraction
 from typing import Tuple
+
+import numpy as np
 
 
 def to_float(s: str) -> float:
@@ -71,3 +74,14 @@ def parse_decision(text: str) -> Tuple[float, float]:
     if not (0.0 <= quality <= 1.0):
         raise ValueError(f"Quality out of bounds: {quality}")
     return price, quality
+
+
+def seed_everything(seed: int) -> None:
+    """Seed Python's and NumPy's random generators.
+
+    The GA operators, the buyers and the rule-based firms all draw from these.
+    LLM replies are not covered: hosted models are not fully deterministic,
+    even at temperature 0 (see ``experiments/reproducibility``).
+    """
+    random.seed(seed)
+    np.random.seed(seed)
