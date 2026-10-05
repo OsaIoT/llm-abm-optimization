@@ -1,0 +1,44 @@
+============================================================
+Reproducibility Analysis
+============================================================
+Model: gpt-4o-mini, T=0
+
+--- Original runs (results/ga_runs/gpt-4o-mini) ---
+  Run 1: genotype=01010100, fitness=949.1
+  Run 2: genotype=10011100, fitness=1243.2
+  Run 3: genotype=10011100, fitness=689.8
+
+--- New runs (re-run) ---
+  Run 1: genotype=01010101, fitness=1273.9
+  Run 2: genotype=10010100, fitness=1366.0
+  Run 3: genotype=10010100, fitness=1090.4
+
+--- Genotype comparison ---
+  Most frequent genotype across all 6 runs: 10011100 (2/6 runs)
+    Original: 2/3, Re-run: 0/3
+
+--- Hamming distances (new vs original) ---
+  New run 1 vs Original run 1: Hamming = 1/8
+  New run 1 vs Original run 2: Hamming = 4/8
+  New run 1 vs Original run 3: Hamming = 4/8
+  New run 2 vs Original run 1: Hamming = 2/8
+  New run 2 vs Original run 2: Hamming = 1/8
+  New run 2 vs Original run 3: Hamming = 1/8
+  New run 3 vs Original run 1: Hamming = 2/8
+  New run 3 vs Original run 2: Hamming = 1/8
+  New run 3 vs Original run 3: Hamming = 1/8
+
+--- Cross-run Hamming distances (within new runs) ---
+  New run 1 vs New run 2: Hamming = 3/8
+  New run 1 vs New run 3: Hamming = 3/8
+  New run 2 vs New run 3: Hamming = 0/8
+
+--- Fitness trajectories (best fitness per generation) ---
+  Original runs:
+    Run 1: [1862, 2113, 432, 1698, 1666, 1207, 545, 354, 41, 965, 2327, 1194, 895, 923, 949]
+    Run 2: [614, 1230, 2168, 1384, 2978, 1785, 607, 1607, 1032, 1172, 1034, 676, 1492, 1094, 1243]
+    Run 3: [2127, 2530, 432, 2475, 1688, 3068, 1916, 1519, 2054, 1369, 1744, 591, 1094, 623, 690]
+  New runs:
+    Run 1: [2035, 1623, 1511, 1725, 2334, 313, 1833, 1296, 286, 776, 1710, 765, 1599, 1386, 1274]
+    Run 2: [135, 449, 2126, 961, 584, 1197, 1086, 797, 1167, 910, 742, 1295, 1199, 1306, 1366]
+    Run 3: [2434, 2243, 1254, 2691, 2094, 1634, 918, 1348, 989, 1133, 300, 912, 670, 1158, 1090]

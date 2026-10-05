@@ -1,0 +1,30 @@
+============================================================
+Prompt-level Variance Test Results
+============================================================
+Model: gpt-4o-mini, T=0
+Optimized genotype: 10011100
+Calls per scenario: 100
+
+--- Scenario: period_1_no_history ---
+  Valid responses: 100/100
+  Parse errors: 0
+  Price:   mean=0.894, std=0.023749, range=[0.8, 0.9]
+  Quality: mean=0.994, std=0.023749, range=[0.9, 1.0]
+  Unique (p,q) pairs: 2
+  Most common:
+    (p=0.9, q=1.0): 94/100 (94.0%)
+    (p=0.8, q=0.9): 6/100 (6.0%)
+
+--- Scenario: period_5_with_history ---
+  Valid responses: 100/100
+  Parse errors: 0
+  Price:   mean=0.897, std=0.017059, range=[0.8, 0.9]
+  Quality: mean=0.997, std=0.017059, range=[0.9, 1.0]
+  Unique (p,q) pairs: 2
+  Most common:
+    (p=0.9, q=1.0): 97/100 (97.0%)
+    (p=0.8, q=0.9): 3/100 (3.0%)
+
+--- Overall ---
+  Minimum determinism rate: 94.0%
+  (fraction of calls returning the most common response)

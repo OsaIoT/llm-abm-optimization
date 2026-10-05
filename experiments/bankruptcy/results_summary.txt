@@ -1,0 +1,37 @@
+============================================================
+Bankruptcy Frequency Analysis
+============================================================
+
+Model: gpt-4o-mini, T=0.0
+Protocol: 20 runs x (1 opt + 9 baseline)
+Buyers: 100000, Periods: 10
+
+--- Bankruptcy rates ---
+  Optimized firms:  0/20 (0.0%)
+  Baseline firms:   52/180 (28.9%)
+
+--- Profit summary ---
+  Optimized mean profit: +6453.5 (std=3256.4)
+  Baseline mean profit:  +4073.2 (std=30161.7)
+
+--- Per-run detail ---
+  Run  1  opt=active   profit=    +11392  base_bankrupt=4/9
+  Run  2  opt=active   profit=     +7112  base_bankrupt=4/9
+  Run  3  opt=active   profit=     +3075  base_bankrupt=2/9
+  Run  4  opt=active   profit=     +6950  base_bankrupt=2/9
+  Run  5  opt=active   profit=     +4010  base_bankrupt=3/9
+  Run  6  opt=active   profit=     +4660  base_bankrupt=3/9
+  Run  7  opt=active   profit=     +6066  base_bankrupt=4/9
+  Run  8  opt=active   profit=     +7533  base_bankrupt=4/9
+  Run  9  opt=active   profit=     +6127  base_bankrupt=3/9
+  Run 10  opt=active   profit=     +5410  base_bankrupt=3/9
+  Run 11  opt=active   profit=     +5594  base_bankrupt=4/9
+  Run 12  opt=active   profit=    +15467  base_bankrupt=3/9
+  Run 13  opt=active   profit=     +2371  base_bankrupt=0/9
+  Run 14  opt=active   profit=     +2430  base_bankrupt=1/9
+  Run 15  opt=active   profit=     +5569  base_bankrupt=4/9
+  Run 16  opt=active   profit=    +10824  base_bankrupt=3/9
+  Run 17  opt=active   profit=     +2550  base_bankrupt=2/9
+  Run 18  opt=active   profit=     +6286  base_bankrupt=1/9
+  Run 19  opt=active   profit=    +10076  base_bankrupt=2/9
+  Run 20  opt=active   profit=     +5568  base_bankrupt=0/9
